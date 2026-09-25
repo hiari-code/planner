@@ -21,6 +21,18 @@
   -webkit-font-smoothing: antialiased;
 }
 
+:root[data-theme='dark'] {
+  --paper: #111311;
+  --panel: #1b2922;
+  --ink: #fffdf5;
+  --muted: #d8c9aa;
+  --red: #b8d99d;
+  --pink: #263a30;
+  --green: #b8d99d;
+  --line: #35483d;
+  --shadow: #080a09;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -29,6 +41,11 @@ body {
   margin: 0;
   min-width: 320px;
   background: radial-gradient(circle at 14% 10%, #fffaf0 0, transparent 32%), var(--paper);
+  transition: background-color 180ms ease, color 180ms ease;
+}
+
+:root[data-theme='dark'] body {
+  background: radial-gradient(circle at 14% 10%, #202c25 0, transparent 34%), var(--paper);
 }
 
 button,

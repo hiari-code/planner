@@ -29,6 +29,6 @@ npm run dev
 
 Open the URL printed by Vite, usually `http://localhost:5173`.
 
-The API stores tasks in memory for this starter project, so data resets when the API restarts. Its routes are `GET /api/tasks`, `POST /api/tasks` (with an optional `time`), `PATCH /api/tasks/{id}`, and `DELETE /api/tasks/{id}`.
+The API stores tasks in `api/tasks.json`, so data persists when the API restarts. Its routes are `GET /api/tasks`, `POST /api/tasks` (with an optional `time`), `PATCH /api/tasks/{id}`, and `DELETE /api/tasks/{id}`.
 
 Each task has a reminder bell. The first activation asks for browser notification permission; reminders are checked while the planner page is open and fire at the task's saved time.

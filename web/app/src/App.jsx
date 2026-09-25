@@ -1,6 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import './App.css'
 
+function taskTimeValue(time) {
+  if (!/^\d{2}:\d{2}$/.test(time)) return Number.POSITIVE_INFINITY
+  const [hours, minutes] = time.split(':').map(Number)
+  return hours * 60 + minutes
+}
+
 function App() {
   const dueMessages = [
     'Giving this a tiny poke so it does not fall asleep.',
@@ -18,7 +24,13 @@ function App() {
   const [taskToDelete, setTaskToDelete] = useState(null)
   const [currentTime, setCurrentTime] = useState(() => new Date())
   const [celebration, setCelebration] = useState('')
+  const [isDarkMode, setIsDarkMode] = useState(() => localStorage.getItem('planner-theme') === 'dark')
   const celebrationTimer = useRef(null)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light'
+    localStorage.setItem('planner-theme', isDarkMode ? 'dark' : 'light')
+  }, [isDarkMode])
 
   function showCelebration(emoji) {
     window.clearTimeout(celebrationTimer.current)
@@ -63,8 +75,14 @@ function App() {
   }, [])
 
   const visibleTasks = useMemo(() => {
-    if (activeFilter === 'Done') return tasks.filter((task) => task.isDone)
-    return tasks.filter((task) => !task.isDone)
+    const filteredTasks = activeFilter === 'Done'
+      ? tasks.filter((task) => task.isDone)
+      : tasks.filter((task) => !task.isDone)
+
+    return [...filteredTasks].sort((firstTask, secondTask) => {
+      const timeDifference = taskTimeValue(firstTask.time) - taskTimeValue(secondTask.time)
+      return timeDifference || firstTask.id - secondTask.id
+    })
   }, [activeFilter, tasks])
 
   const completedCount = tasks.filter((task) => task.isDone).length
@@ -160,7 +178,20 @@ function App() {
         <a className="brand" href="/" aria-label="Samurai Planner home">
           <span className="brand-mark">武</span><span>Samurai Planner</span>
         </a>
-        <div className="date-pill"><span className="status-dot" />Thursday, September 24</div>
+        <div className="topbar-actions">
+          <div className="date-pill"><span className="status-dot" />{currentTime.toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' })}</div>
+          <button
+            className="theme-toggle"
+            type="button"
+            role="switch"
+            aria-checked={isDarkMode}
+            aria-label={isDarkMode ? 'Switch to bright mode' : 'Switch to dark mode'}
+            title={isDarkMode ? 'Switch to bright mode' : 'Switch to dark mode'}
+            onClick={() => setIsDarkMode((currentMode) => !currentMode)}
+          >
+            <span aria-hidden="true">{isDarkMode ? '☀' : '☾'}</span>
+          </button>
+        </div>
       </header>
 
       <section className="intro">

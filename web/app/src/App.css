@@ -84,6 +84,38 @@
   text-transform: uppercase;
 }
 
+.topbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+
+.theme-toggle {
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--panel);
+  color: var(--red);
+  font-size: 17px;
+  line-height: 1;
+  cursor: pointer;
+  transition: background-color 180ms ease, border-color 180ms ease, transform 180ms ease;
+}
+
+.theme-toggle:hover {
+  border-color: var(--red);
+  transform: rotate(12deg);
+}
+
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+}
+
 .status-dot {
   display: inline-block;
   width: 7px;
@@ -223,6 +255,10 @@ h2 {
   color: var(--ink);
   font-family: var(--body);
   font-size: 14px;
+}
+
+:root[data-theme='dark'] .task-form input {
+  color: var(--muted);
 }
 
 .task-form input::placeholder {
@@ -453,6 +489,10 @@ h2 {
 
   .date-pill {
     font-size: 0;
+  }
+
+  .topbar-actions {
+    gap: 12px;
   }
 
   .date-pill .status-dot {

@@ -24,3 +24,4 @@ C:\Users\Mino\Documents\planner\api\obj\Debug\net8.0\refint\api.dll
 C:\Users\Mino\Documents\planner\api\obj\Debug\net8.0\api.pdb
 C:\Users\Mino\Documents\planner\api\obj\Debug\net8.0\api.genruntimeconfig.cache
 C:\Users\Mino\Documents\planner\api\obj\Debug\net8.0\ref\api.dll
+C:\Users\Mino\Documents\planner\api\bin\Debug\net8.0\tasks.json
